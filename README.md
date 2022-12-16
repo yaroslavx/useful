@@ -1,24 +1,13 @@
-# React Bricks starter with Next.js with Tailwind CSS and React Bricks UI
+# Welcome to My blanks for development
 
-Kick-start your project with this boilerplate for a complete Next.js website based on [React Bricks](https://reactbricks.com), with both the front-end and admin dashboard.
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
 
-## 🚀 Quick start
+> Just blanks. You can clone repository if it seems helpful
 
-We suggest that you use the CLI and choose this starter.  
-In this way you will have the credentials already set up in a `.env.local` file:
+## Clone
 
-```bash
-npx create-reactbricks-app
-# or
-yarn create reactbricks-app
+```js
+git clone // repo UPL
+
 ```
-
-Otherwise you can directly clone this repo:
-
-```bash
-git clone https://github.com/reactbricks/nextjs-starter-reactbricks-tailwind your-project
-```
-
-## 📖 Documentation
-
-Please, read our documentation at [Reactbricks.com](https://reactbricks.com).
