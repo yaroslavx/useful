@@ -1,5 +1,5 @@
 import './App.css'
-import { Heading, HeadingWithChildren, Container, TextWithNumber, List, ClassHeading } from './components/TypesciptProps'
+import { Heading, HeadingWithChildren, Container, TextWithNumber, List, ClassHeading } from './components/TypescriptProps'
 
 function App() {
   return (
