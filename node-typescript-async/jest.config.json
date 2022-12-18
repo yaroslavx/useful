@@ -1,15 +1,9 @@
 {
   "preset": "ts-jest",
   "testEnvironment": "node",
-  "moduleDirectories": ["node_modules"],
-  "moduleFileExtensions": [
-    "js",
-    "mjs",
-    "cjs",
-    "jsx",
-    "ts",
-    "tsx",
-    "json",
-    "node"
-  ]
+  "transform": {
+    "^.+\\.(ts|tsx)$": "ts-jest",
+    "^.+\\.(js)$": "babel-jest"
+  },
+  "transformIgnorePatterns": []
 }
