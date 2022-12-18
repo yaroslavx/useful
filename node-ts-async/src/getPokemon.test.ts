@@ -1,5 +1,5 @@
 // @ts-ignore
-import { getPokemonList } from './getPokemon.ts';
+import { getPokemonList } from './getPokemon.ts.js';
 
 describe('getPokemon', () => {
   it('getPokemonList', async () => {
