@@ -1,17 +1,19 @@
-import React from 'react'
 import store from '../store.js'
 import { observer } from 'mobx-react'
 import InputTask from './InputTask.js'
 
-type Props = {}
 
-export const TaskListItems = (props: Props) => {
+export const TaskListItems = () => {
     return (
-        <div>
-            {store.tasks.map(task => <div>{task.text}</div>)}
-        </div>
+        <>
+            {store.tasks.map(task => <div key={task.id}>
+                <input type="text" value={task.text} onChange={(e) => task.text = e.target.value} />
+                <input type='checkbox' checked={task.done} onChange={() => store.doneTask(task.id)} />
+                <button onClick={() => store.removeTask(task.id)}>&times;</button>
+            </div>)
+            }
+        </>
     )
-
 }
 
 const TaskListItemsObserver = observer(TaskListItems)

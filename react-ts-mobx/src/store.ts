@@ -18,6 +18,16 @@ const addTask = (tasks: Task[], text: string): Task[] => [
   },
 ];
 
+const doneTask = (tasks: Task[], id: number): Task[] =>
+  tasks.map((task) =>
+    task.id === id
+      ? {
+          ...task,
+          done: !task.done,
+        }
+      : task
+  );
+
 // Mobx implementation
 
 class Store {
@@ -31,6 +41,10 @@ class Store {
   addTask() {
     this.tasks = addTask(this.tasks, this.newTask);
     this.newTask = '';
+  }
+
+  doneTask(id: number) {
+    this.tasks = doneTask(this.tasks, id);
   }
 
   removeTask(id: number) {
