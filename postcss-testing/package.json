@@ -1,0 +1,22 @@
+{
+  "name": "postcss-testing",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "watch:css": "postcss src/input.css -o out/style.css -w",
+    "build:css": "postcss src/input.css -o out/style.css"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.13",
+    "cssnano": "^5.1.14",
+    "postcss": "^8.4.20",
+    "postcss-cli": "^10.1.0",
+    "postcss-preset-env": "^7.8.3",
+    "precss": "^4.0.0"
+  },
+  "dependencies": {
+    "postcss-assets": "^6.0.0",
+    "postcss-import": "^15.1.0"
+  }
+}
