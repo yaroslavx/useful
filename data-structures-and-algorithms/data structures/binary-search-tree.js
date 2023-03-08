@@ -106,7 +106,7 @@ class BinarySearchTree {
 
   preOrder(root) {
     if (root) {
-      console.log(root.value);
+      console.log(root.value, root);
       this.preOrder(root.left);
       this.preOrder(root.right);
     }
@@ -176,19 +176,19 @@ class BinarySearchTree {
 // TODO level order and delete
 
 const bst = new BinarySearchTree();
-console.log(bst.isEmpty());
-bst.insert(10);
-bst.insert(5);
-bst.insert(15);
-bst.insert(3);
-bst.insert(7);
-bst.insert(13);
-bst.insert(17);
+// console.log(bst.isEmpty());
+bst.insert(1);
 bst.insert(2);
+bst.insert(5);
+bst.insert(3);
+bst.insert(4);
+bst.insert(6);
+
 console.log(bst.search(bst.root, 10));
 console.log(bst.search(bst.root, 7));
 bst.inOrder();
-bst.preOrder();
+bst.preOrder(bst.root);
+console.log(bst.root);
 bst.postOrder();
 bst.levelOrder();
 bst.printLevel(bst.root, 3);
