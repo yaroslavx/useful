@@ -1,0 +1,35 @@
+{
+  "name": "second-package",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "Yaroslav Yakupov <yakupov.yaroslav@icloud.com>",
+  "homepage": "https://github.com/yaroslavx/helpful-blanks#readme",
+  "license": "ISC",
+  "main": "dist/second-package.js",
+  "types": "dist/second-package.d.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yaroslavx/helpful-blanks.git"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "bugs": {
+    "url": "https://github.com/yaroslavx/helpful-blanks/issues"
+  },
+  "dependencies": {
+    "first-package": "*"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "typescript": "^5.0.2"
+  }
+}
