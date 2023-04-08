@@ -1,10 +1,21 @@
 import React from 'react'
 import Search from '../Search'
+import { link } from 'fs'
 
 type SearchResultProps = {
     params: {
         query: string
     }
+}
+
+type SearchResult = {
+    organic_results: {
+        position: number
+        title: string
+        link: string
+        thumbnail: string
+        snippet: string
+    }[]
 }
 
 const search = async (query: string) => {
@@ -15,9 +26,18 @@ const search = async (query: string) => {
 }
 
 async function SearchResult({ params: { query } }: SearchResultProps) {
-    const res = await search(query)
+    const results: SearchResult = await search(query)
     return (
-        <div>SearchResult</div>
+        <div>
+            <p className="text-gray-500 text-sm">You searched for: {query}</p>
+
+            <ol className='space-y-5 p-5'>
+                {results.organic_results.map(res => (<li key={res.position} className='list-decimal'>
+                    <p className='font-bold'>{res.title}</p>
+                    <p>{res.snippet}</p>
+                </li>))}
+            </ol>
+        </div>
     )
 }
 
