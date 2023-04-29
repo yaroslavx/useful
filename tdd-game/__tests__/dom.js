@@ -1,12 +1,13 @@
+import jsdom from 'jsdom';
 import {
   describe,
   test,
   expect,
   beforeEach,
   afterEach,
+  afterAll,
   jest,
 } from '@jest/globals';
-import jsdom from 'jsdom';
 
 import { Game } from '../src/Game';
 import { DomController } from '../src/DomController';
@@ -19,19 +20,6 @@ global.document = dom.window.document;
 
 const createGame = (board) => new Game(board);
 
-beforeEach(() => {
-  window.alert = jest.fn();
-});
-
-afterEach(() => {
-  document.body.innerHTML = '';
-  window.alert.mockReset();
-});
-
-afterAll(() => {
-  window.alert.mockRestore();
-});
-
 const createInstance = (game = {}) => {
   return new DomController({
     game: game,
@@ -39,11 +27,26 @@ const createInstance = (game = {}) => {
   });
 };
 
-describe('DOM controller', () => {
+beforeEach(() => {
+  window.alert = jest.fn();
+});
+
+afterEach(() => {
+  document.body.innerHTML = '';
+
+  window.alert.mockReset();
+});
+
+afterAll(() => {
+  window.alert.mockRestore();
+});
+
+describe('DOM Controller', () => {
   test('Creates empty table', () => {
     const domController = createInstance();
 
     domController.createTable();
+
     expect(document.querySelectorAll('table').length).toBe(1);
   });
 
@@ -74,6 +77,17 @@ describe('DOM controller', () => {
     document.querySelector('table td').click();
 
     expect(domController.game.acceptUserMove).toHaveBeenCalled();
+  });
+
+  test('Checks initialization of table by game state', () => {
+    const game = createGame();
+    const domController = createInstance(game);
+
+    domController.init();
+
+    expect(document.querySelectorAll('table').length).toBe(1);
+    expect(document.querySelectorAll('tr').length).toBe(3);
+    expect(document.querySelectorAll('td').length).toBe(9);
   });
 
   test('Gets an alert when user makes move in taken cell', () => {
@@ -109,7 +123,7 @@ describe('DOM controller', () => {
     expect(text.indexOf('o') > -1).toBe(true);
   });
 
-  test('Creates status text below table if someone wins', () => {
+  test('Creates status text below table is someone wins', () => {
     const game = createGame([
       ['x', 'x', ''],
       ['', '', ''],
@@ -123,5 +137,38 @@ describe('DOM controller', () => {
 
     const status = document.querySelector('#status');
     expect(status.textContent).toEqual('user won!');
+  });
+
+  test('Creates clear button if someone wins', () => {
+    const game = createGame([
+      ['x', 'x', ''],
+      ['', '', ''],
+      ['', '', ''],
+    ]);
+
+    const domController = createInstance(game);
+
+    domController.init();
+    document.querySelector('table tr:nth-child(1) td:nth-child(3)').click();
+
+    const button = document.querySelectorAll('button');
+    expect(button.length).toBe(1);
+  });
+
+  test('Clears table on button click', () => {
+    const game = createGame([
+      ['x', 'x', ''],
+      ['', '', ''],
+      ['', '', ''],
+    ]);
+
+    const domController = createInstance(game);
+
+    domController.init();
+    document.querySelector('table tr:nth-child(1) td:nth-child(3)').click();
+    document.querySelector('button').click();
+
+    expect(document.querySelector('table').textContent).toEqual('');
+    expect(document.querySelectorAll('button').length).toBe(0);
   });
 });

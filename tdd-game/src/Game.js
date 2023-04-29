@@ -1,16 +1,23 @@
+import {
+  userName,
+  computerName,
+  userMoveSymbol,
+  computerMoveSymbol,
+  initialGameBoard,
+} from './consts.js';
+
 export class Game {
-  constructor() {
-    this._history = [];
-    this._board = [
-      ['', '', ''],
-      ['', '', ''],
-      ['', '', ''],
-    ];
+  constructor(board) {
+    this._userName = userName;
+    this._computerName = computerName;
+
+    this._userMoveSymbol = userMoveSymbol;
+    this._computerMoveSymbol = computerMoveSymbol;
+
     this._fieldSize = 3;
-    this._computerName = 'computer';
-    this._userName = 'user';
-    this._userMoveSymbol = 'x';
-    this._computerMoveSymbol = 'o';
+    this._history = [];
+
+    this._board = board || this._cloneBoardState(initialGameBoard);
   }
 
   getState() {
@@ -21,13 +28,22 @@ export class Game {
     return this._fieldSize;
   }
 
+  getMoveHistory() {
+    return this._history;
+  }
+
+  clear() {
+    this._history = [];
+    this._board = this._cloneBoardState(initialGameBoard);
+  }
+
   acceptUserMove(x, y) {
     if (!this._isCellFree(x, y)) {
-      this._throwException('This cell is already occupied');
+      return this._throwException('cell is already taken');
     }
 
-    this._updateBoard(x, y);
     this._updateHistory(this._userName, x, y);
+    this._updateBoard(x, y);
   }
 
   createComputerMove() {
@@ -36,15 +52,10 @@ export class Game {
     }
 
     const [x, y] = this._getFreeRandomCoordinates();
-
     this._updateHistory(this._computerName, x, y);
     this._updateBoard(x, y, {
       symbol: this._computerMoveSymbol,
     });
-  }
-
-  getHistory() {
-    return this._history;
   }
 
   isWinner(player) {
@@ -57,7 +68,27 @@ export class Game {
       false
     );
 
-    return horizontal;
+    const vertical = range.reduce(
+      (res, i) => (isEqual(0, i) && isEqual(1, i) && isEqual(2, i)) || res,
+      false
+    );
+
+    const diagonal =
+      (isEqual(0, 0) && isEqual(1, 1) && isEqual(2, 2)) ||
+      (isEqual(0, 2) && isEqual(1, 1) && isEqual(2, 0));
+
+    return horizontal || vertical || diagonal || false;
+  }
+
+  checkGame() {
+    if (this.isWinner(this._userName)) return `${this._userName} won!`;
+    if (this.isWinner(this._computerName)) return `${this._computerName} won!`;
+    if (this._getFreeCellsCount() === 0) return `nobody won :–(`;
+    return 'continue';
+  }
+
+  _cloneBoardState(board) {
+    return JSON.parse(JSON.stringify(board));
   }
 
   _updateBoard(x, y, config = {}) {
@@ -69,12 +100,20 @@ export class Game {
     this._history.push({ turn, x, y });
   }
 
+  _throwException(msg) {
+    throw new Error(msg);
+  }
+
   _isCellFree(x, y) {
     return !this._board[x][y];
   }
 
-  _throwException(message) {
-    throw new Error(message);
+  _getFreeCellsCount() {
+    return this._board.reduce(
+      (total, row) =>
+        row.reduce((count, el) => (el === '' ? ++count : count), total),
+      0
+    );
   }
 
   _getRandomCoordinate() {
@@ -91,14 +130,6 @@ export class Game {
     }
 
     return [x, y];
-  }
-
-  _getFreeCellsCount() {
-    return this._board.reduce(
-      (total, row) =>
-        row.reduce((count, el) => (el === '' ? ++count : count), total),
-      0
-    );
   }
 
   _getSymbolForPlayer(player) {
