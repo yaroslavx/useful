@@ -1,6 +1,6 @@
 import { expect, jest, test } from '@jest/globals';
 import { Game } from '../src/Game';
-import { GameBuilder } from './gameBuilder';
+import { GameBuilder } from '../utils/tests/gameBuilder';
 
 const userMoveSymbol = 'x';
 const computerMoveSymbol = 'o';
@@ -133,6 +133,6 @@ describe('Game', () => {
       .build();
 
     const userWon = game.isWinner(userName);
-    expect(userWon).to.equal(true);
+    expect(userWon).toEqual(true);
   });
 });

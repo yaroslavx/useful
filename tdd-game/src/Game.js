@@ -12,8 +12,13 @@ export class Game {
     this._userMoveSymbol = 'x';
     this._computerMoveSymbol = 'o';
   }
+
   getState() {
     return this._board;
+  }
+
+  getSize() {
+    return this._fieldSize;
   }
 
   acceptUserMove(x, y) {
@@ -22,7 +27,7 @@ export class Game {
     }
 
     this._updateBoard(x, y);
-    this._updateHistory(_userName, x, y);
+    this._updateHistory(this._userName, x, y);
   }
 
   createComputerMove() {

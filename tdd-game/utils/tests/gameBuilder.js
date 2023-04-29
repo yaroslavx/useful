@@ -1,4 +1,4 @@
-import { Game } from '../src/Game';
+import { Game } from '../../src/Game';
 
 export class GameBuilder {
   constructor() {
@@ -18,5 +18,9 @@ export class GameBuilder {
     });
 
     return this;
+  }
+
+  build() {
+    return this.game;
   }
 }
