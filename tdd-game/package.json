@@ -1,0 +1,16 @@
+{
+  "name": "tdd-game",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack",
+    "test": "NODE_OPTIONS=--expiremental-vm-modules npx jest"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "jsdom": "^21.1.1",
+    "webpack": "^5.81.0",
+    "webpack-cli": "^5.0.2"
+  }
+}
