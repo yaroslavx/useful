@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "build": "webpack",
-    "test": "NODE_OPTIONS=--expiremental-vm-modules npx jest"
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
   },
   "devDependencies": {
     "jest": "^29.5.0",
