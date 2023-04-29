@@ -1,5 +1,6 @@
 import { expect, jest, test } from '@jest/globals';
 import { Game } from '../src/Game';
+import { GameBuilder } from './gameBuilder';
 
 const userMoveSymbol = 'x';
 const computerMoveSymbol = 'o';
@@ -10,6 +11,23 @@ const initialState = [
   ['', '', ''],
   ['', '', ''],
 ];
+
+const fillCells = (game, config = {}) => {
+  const { x = -1, y = -1 } = config;
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      if (i !== x || j !== y) game.acceptUserMove(i, j);
+    }
+  }
+};
+
+const count = (arr, symbol) => {
+  return arr.reduce((res, row) => {
+    return row.reduce((count, el) => {
+      return el === symbol ? count + 1 : count;
+    }, res);
+  }, 0);
+};
 
 let game;
 beforeEach(() => {
@@ -84,5 +102,37 @@ describe('Game', () => {
 
     expect(board[1][1]).toEqual(computerMoveSymbol);
     mock.mockRestore();
+  });
+
+  test('Compoter moves in last vacant cell', () => {
+    fillCells(game, { x: 2, y: 2 });
+    game.createComputerMove();
+    const board = game.getState();
+
+    expect(count(game.getState(), userMoveSymbol)).toBe(8);
+    expect(count(game.getState(), computerMoveSymbol)).toBe(1);
+    expect(board[2][2]).toEqual(computerMoveSymbol);
+  });
+
+  test('If there are no free cells computer throws an exception', () => {
+    fillCells(game);
+
+    const func = game.createComputerMove.bind(game);
+    expect(func).toThrow('no cells available');
+  });
+
+  test('Checks if user won by horizontal', () => {
+    const game = new GameBuilder()
+      .withBoardState(
+        `
+        x x x
+        . . .
+        . . .
+      `
+      )
+      .build();
+
+    const userWon = game.isWinner(userName);
+    expect(userWon).to.equal(true);
   });
 });
