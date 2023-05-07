@@ -20,3 +20,12 @@ export async function load(url, context, defaultLoad) {
   }
   return defaultLoad(url, context, defaultLoad);
 }
+
+// import html from './index.html';
+// import doc from './doc.md';
+// import css from './styles.css';
+// import svg from './image.svg';
+// import data from './data.json';
+// console.log(html, doc, css, svg, data);
+
+// node --loader ./loader.js ./my-app.js
