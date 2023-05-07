@@ -4,7 +4,7 @@ import {
   renderIntoDocument,
   scryRenderedDOMComponentsWithTag,
 } from 'react-addons-test-utils';
-import Voting from '../../src/components/Voting';
+import { Voting } from '../src/components/Voting';
 
 describe('Voting', () => {
   it('renders a pair of buttons', () => {
