@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "dev": "webpack serve --mode development",
     "build": "webpack --mode production",
@@ -26,6 +27,7 @@
     "mini-css-extract-plugin": "^2.7.5",
     "mocha": "^10.2.0",
     "react": "^18.2.0",
+    "react-addons-test-utils": "^15.6.2",
     "react-dom": "^18.2.0",
     "style-loader": "^3.3.2",
     "webpack": "^5.82.0",

@@ -2,7 +2,12 @@ import jsdom from 'jsdom';
 import chai from 'chai';
 import chaiImmutable from 'chai-immutable';
 
-const doc = jsdom.jsdom('<!doctype html><html><body></body></html>');
+const { JSDOM } = jsdom;
+
+const { document } = new JSDOM(``, {
+  url: 'http://localhost',
+}).window;
+const doc = document;
 const win = doc.defaultView;
 
 global.document = doc;
