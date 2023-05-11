@@ -15,8 +15,6 @@ promiseOne
   .finally(() => {});
 
 setTimeout(() => {
-  console.log('time is over');
   cancelFetch.abort();
+  console.timeEnd('fetch');
 }, 1000);
-
-console.timeEnd('fetch');
