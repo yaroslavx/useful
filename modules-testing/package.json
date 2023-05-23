@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "rm -rf dist && tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json && tsc -p tsconfig.types.json && cp package.json dist/package.json"
   },
   "keywords": [],
   "author": "",
@@ -13,5 +13,21 @@
   "devDependencies": {
     "@types/node": "^20.2.3",
     "typescript": "^5.0.4"
-  }
+  },
+  "exports": {
+    "./*": {
+      "types": "./_types/*.d.ts",
+      "require": "./_cjs/*.js",
+      "import": "./_esm/*.js",
+      "default": "./_esm/*.js"
+    }
+  },
+  "typesVersions": {
+    ">=4.2": {
+      "*": [
+        "_types/*"
+      ]
+    }
+  },
+  "types": "./index.d.ts"
 }
