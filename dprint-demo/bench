@@ -1,0 +1,18 @@
+# /bin/bash
+
+echo "dprint:"
+START=$(date + %s%N)
+npx dprint fmt --incremental=false
+END=$(date + %s%N)
+
+milliseconds=$((($END - $START) / 1000000))
+
+seconds=$(($milliseconds/1000))
+
+minutes=$(($seconds/1000))
+
+echo "Amount of milliseconds:" $milliseconds
+echo "Amount of seconds:" $seconds
+echo "Amount of minutes:" $minutes
+
+git diff --shortstat | tail -n1
