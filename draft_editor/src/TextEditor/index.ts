@@ -1,1 +1,1 @@
-export { default } from './TextEditors';
+export { default } from './TextEditor';

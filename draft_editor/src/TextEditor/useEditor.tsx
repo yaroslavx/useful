@@ -8,7 +8,7 @@ export type EditorApi = {
     toggleBlockType: (blockType: BlockType) => void
     currentBlockType: BlockType;
     toggleInlineStyle: (inlineStyle: InlineStyle) => void
-    hasInlineStyle: (inlineStyle: InlineStyle) => void
+    hasInlineStyle: (inlineStyle: InlineStyle) => boolean
 
 }
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Editor } from 'draft-js';
 import { useEditorApi } from './context';
-import './TextEditor.scss';
+// import './TextEditor.scss';
 import { BLOCK_RENDER_MAP, CUSTOM_STYLE_MAP } from './config';
 
 export type TextEditorProps = {
