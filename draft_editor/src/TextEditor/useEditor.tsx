@@ -29,6 +29,7 @@ export type EditorApi = {
     handlerKeyBinding: (e: React.KeyboardEvent) => KeyCommand | null;
 };
 
+// Объединям декораторы в один
 const decorator = new CompositeDecorator([LinkDecorator]);
 
 export const useEditor = (html?: string): EditorApi => {
@@ -68,8 +69,11 @@ export const useEditor = (html?: string): EditorApi => {
 
     const setEntityData = React.useCallback((entityKey: any, data: any) => {
         setState((currentState) => {
+            // Получаем текущий контент
             const content = currentState.getCurrentContent();
+            // Объединяем текущие данные Entity с новыми
             const contentStateUpdated = content.mergeEntityData(entityKey, data);
+            // Объединяем текущие данные Entity с новыми
             return EditorState.push(
                 currentState,
                 contentStateUpdated,
@@ -85,16 +89,21 @@ export const useEditor = (html?: string): EditorApi => {
             mutability: DraftEntityMutability
         ) => {
             setState((currentState) => {
+                // Получаем текущий контент
                 const contentState = currentState.getCurrentContent();
+                // Создаем Entity с данными
                 const contentStateWithEntity = contentState.createEntity(
                     entityType,
                     mutability,
                     data
                 );
+                // Получаем уникальный ключ Entity
                 const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+                // Обьединяем текущее состояние с новым
                 const newState = EditorState.set(currentState, {
                     currentContent: contentStateWithEntity,
                 });
+                // Вставляем ссылку в указанное место
                 return RichUtils.toggleLink(
                     newState,
                     newState.getSelection(),
@@ -132,6 +141,7 @@ export const useEditor = (html?: string): EditorApi => {
     );
 
     const handlerKeyBinding = React.useCallback((e: React.KeyboardEvent) => {
+        // Проверяем нажата ли клавиша q + ctrl/cmd
         if (e.keyCode === 81 && KeyBindingUtil.hasCommandModifier(e)) {
             return "accent";
         }
@@ -140,7 +150,10 @@ export const useEditor = (html?: string): EditorApi => {
     }, []);
 
     const toHtml = React.useCallback(
-        () => stateToHTML(state.getCurrentContent()),
+        () => {
+            console.log(state.getCurrentContent())
+            return stateToHTML(state.getCurrentContent())
+        },
         [state]
     );
 
